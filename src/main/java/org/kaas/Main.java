@@ -6,6 +6,8 @@ public class Main {
         System.out.println("Extra feature");
 
         /// Oh no an error
-        throw new RuntimeException("Oh no!");
+        //throw new RuntimeException("Oh no!");
+        /// and antoher one
+        throw new RuntimeException("Oh no again!");
     }
 }
