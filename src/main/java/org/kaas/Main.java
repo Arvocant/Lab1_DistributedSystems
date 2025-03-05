@@ -9,5 +9,6 @@ public class Main {
         //throw new RuntimeException("Oh no!");
         /// and antoher one
         throw new RuntimeException("Oh no again!");
+
     }
 }
