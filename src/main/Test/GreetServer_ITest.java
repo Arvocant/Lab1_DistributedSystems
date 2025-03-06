@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestServer {
+public class GreetServer_ITest {
+
     @Test
     public void givenGreetingClient_whenServerRespondsWhenStarted_thenCorrect() throws IOException {
         GreetClient client = new GreetClient();
@@ -13,4 +14,5 @@ public class TestServer {
         String response = client.sendMessage("hello server");
         assertEquals("hello client", response);
     }
+
 }
