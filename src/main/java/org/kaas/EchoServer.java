@@ -29,7 +29,7 @@ public class EchoServer extends GreetServer{
     public static void main(String[] args) {
         EchoServer server=new EchoServer();
         try {
-            server.start(4444);
+            server.start(5555);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

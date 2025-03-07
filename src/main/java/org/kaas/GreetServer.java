@@ -35,7 +35,7 @@ public class GreetServer {
     public static void main(String[] args) {
         GreetServer server = new GreetServer();
         try {
-            server.start(6666);
+            server.start(4444);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

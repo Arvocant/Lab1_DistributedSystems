@@ -13,7 +13,7 @@ public class EchoServer_ITest {
     @Before
     public void setup() throws IOException {
         this.client = new EchoClient();
-        client.startConnection("127.0.0.1", 4444);
+        client.startConnection("127.0.0.1", 5555);
     }
 
     @Test

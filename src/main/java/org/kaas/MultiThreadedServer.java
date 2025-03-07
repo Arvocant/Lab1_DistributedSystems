@@ -1,9 +1,6 @@
 package org.kaas;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -12,27 +9,35 @@ public class MultiThreadedServer {
     public static class ClientHandler extends Thread{
 
         private Socket clientSocket;
-        private PrintWriter out;
+        private DataOutputStream out;
         private BufferedReader in;
 
         public ClientHandler(Socket socket){
             this.clientSocket = socket;
         }
 
+
         @Override
         public void run(){
 
             try {
-                out = new PrintWriter(clientSocket.getOutputStream(),true);
+                out = new DataOutputStream(clientSocket.getOutputStream());
                 in = new BufferedReader(new InputStreamReader((clientSocket.getInputStream())));
 
                 String inputLine;
+                label:
                 while((inputLine = in.readLine())!= null){
-                    if(".".equals(inputLine)){
-                        out.println("bye");
-                        break;
+                    switch (inputLine) {
+                        case ".":
+                            break label;
+                        case "otag.jpg":
+                            sendFile("otag.jpg");
+                            break;
+                        case "lab1.pdf":
+                            sendFile("lab1.pdf");
+                            break;
                     }
-                    out.println(inputLine);
+
                 }
                 in.close();
                 out.close();
@@ -41,6 +46,20 @@ public class MultiThreadedServer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        private void sendFile(String filename) throws IOException {
+            String filepath = "src/files/serverfiles/"+filename;
+            File file = new File(filepath);
+            FileInputStream fileInputStream = new FileInputStream(file);
+            //Marshalling the data (haha I've paid attention to the classes)
+            int bytes;
+            byte[] buffer = new byte[4 * 1024];
+            while ((bytes = fileInputStream.read(buffer))!= -1){
+                out.write(buffer,0,bytes);
+                out.flush();
+            }
+            fileInputStream.close();
         }
     }
 
@@ -68,7 +87,7 @@ public class MultiThreadedServer {
     public static void main(String[] args) {
         MultiThreadedServer server = new MultiThreadedServer();
         try {
-            server.start(5555);
+            server.start(6666);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
