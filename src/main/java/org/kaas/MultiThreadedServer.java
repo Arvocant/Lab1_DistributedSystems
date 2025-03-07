@@ -60,6 +60,7 @@ public class MultiThreadedServer {
                 out.flush();
             }
             fileInputStream.close();
+            out.close();
         }
     }
 
